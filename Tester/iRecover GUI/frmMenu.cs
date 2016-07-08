@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using iRecover;
 
 namespace iRecover_GUI
 {
@@ -19,7 +20,7 @@ namespace iRecover_GUI
 
         private void btnRecoverFF_Click(object sender, EventArgs e)
         {
-
+            Browsers.FireFox();
         }
     }
 }

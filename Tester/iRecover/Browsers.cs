@@ -8,11 +8,17 @@ namespace iRecover
 {
     public static class Browsers
     {
-        public static void FireFox()
+        public static List<FirefoxPassword> FireFoxPassword()
+        {
+            List<FirefoxPassword> firefoxPasswords = Firefox.Passwords();
+            return firefoxPasswords;
+        }
+
+        public static List<FirefoxCookie> FireFoxCookies()
         {
             List<FirefoxCookie> firefoxCookies = Firefox.Cookies();
-            List<FirefoxPassword> firefoxPasswords = Firefox.Passwords();
-
+            return firefoxCookies;
         }
     }
 }
+
