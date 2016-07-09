@@ -1,11 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
 using System.IO;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using iRecover;
 
@@ -104,7 +99,7 @@ namespace iRecover_GUI
             abStatusTools.Style = Reflection.rAlertBox.Styles.Blue;
             try
             {
-                var fzHosts = Tools.FileZilla();
+                var fzHosts = Tools.ReadRecentServers();
                 SaveToFile("filezilla_hosts.txt", fzHosts);
                 abStatusTools.Text = "Success!";
                 abStatusTools.Style = Reflection.rAlertBox.Styles.Green;
@@ -126,6 +121,11 @@ namespace iRecover_GUI
         private void SaveToFile(string name, List<FirefoxCookie> ls)
         {
             File.WriteAllLines(name, ls.ConvertAll(Convert.ToString));
+        }
+
+        private void SaveToFile(string name, List<FileZillaCredentials> ls)
+        {
+            File.WriteAllLines(name, Helper.FileZillaCredentialsToListString(ls));
         }
 
         private void SaveToFile(string name, List<string> ls)

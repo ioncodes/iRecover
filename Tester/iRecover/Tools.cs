@@ -1,32 +1,63 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data;
 using System.IO;
+using System.Xml;
+using System.Text;
 
 namespace iRecover
 {
     public static class Tools
     {
-        public static List<string> FileZilla()
+        public static List<FileZillaCredentials> ReadAll()
         {
-            List<string> hosts = new List<string>();
-            string DocumentoXml = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData).ToString() + "\\Filezilla\\recentservers.xml";
-            int counter = File.ReadAllText(DocumentoXml).Split(new string[] { "<Server>" }, StringSplitOptions.None).Length - 1;
-            string StrHost;
-            string StrPort;
-            string StrUser;
-            string StrPass;
-            DataSet Ds = new DataSet();
-            Ds.ReadXml(DocumentoXml);
-            for (int i = 0; i < counter; i++)
-            {
-                StrHost = Ds.Tables["Server"].Rows[i]["Host"].ToString();
-                StrPort = Ds.Tables["Server"].Rows[i]["Port"].ToString();
-                StrUser = Ds.Tables["Server"].Rows[i]["User"].ToString();
-                StrPass = Convert.FromBase64String(Ds.Tables["Server"].Rows[i]["Pass"].ToString()).ToString(); //Error wtf
-                hosts.Add("Host: " + StrHost + " Port: " + StrPort + " User: " + StrUser + " Password: " + StrPass);
-            }
-            return hosts;
+            var rs = ReadFile(FZSettings.FileZillaRecentServersFile);
+            var sm = ReadFile(FZSettings.FileZillaSiteManagerFile);
+            var all = new List<FileZillaCredentials>(rs.Count + sm.Count);
+            all.AddRange(rs);
+            all.AddRange(sm);
+            return all;
+        }
+
+        public static List<FileZillaCredentials> ReadRecentServers()
+        {
+            return ReadFile(FZSettings.FileZillaRecentServersFile);
+        }
+
+        public static List<FileZillaCredentials> ReadSiteManager()
+        {
+            return ReadFile(FZSettings.FileZillaSiteManagerFile);
+        }
+
+        private static List<FileZillaCredentials> ReadFile(String filename)
+        {
+            List<FileZillaCredentials> _list = new List<FileZillaCredentials>();
+
+                if (File.Exists(filename))
+                {
+                    XmlTextReader xmlTReader = new XmlTextReader(filename);
+                    XmlDocument xmlDoc = new XmlDocument();
+                    xmlDoc.Load(xmlTReader);
+
+                    foreach (XmlNode xmlNode in xmlDoc.DocumentElement.ChildNodes[0].ChildNodes)
+                    {
+                        FileZillaCredentials fzc = new FileZillaCredentials();
+                        foreach (XmlNode xmlNodeChild in xmlNode.ChildNodes)
+                        {
+                            if (xmlNodeChild.Name == "Host")
+                                fzc.Host = xmlNodeChild.InnerText;
+                            if (xmlNodeChild.Name == "Port")
+                                fzc.Port = xmlNodeChild.InnerText;
+                            if (xmlNodeChild.Name == "User")
+                                fzc.User = xmlNodeChild.InnerText;
+                            if (xmlNodeChild.Name == "Pass")
+                                fzc.Pass = Encoding.UTF8.GetString(Convert.FromBase64String(xmlNodeChild.InnerText));
+                        }
+                        _list.Add(fzc);
+                    }
+                }
+
+                return _list;
         }
     }
 }
+
