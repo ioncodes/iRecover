@@ -8,7 +8,7 @@ namespace iRecover
 {
     public static class Tools
     {
-        public static List<FileZillaCredentials> ReadAll()
+        public static List<FileZillaCredentials> FileZillaAll()
         {
             var rs = ReadFile(FZSettings.FileZillaRecentServersFile);
             var sm = ReadFile(FZSettings.FileZillaSiteManagerFile);
@@ -18,12 +18,12 @@ namespace iRecover
             return all;
         }
 
-        public static List<FileZillaCredentials> ReadRecentServers()
+        public static List<FileZillaCredentials> FileZillaRecentServers()
         {
             return ReadFile(FZSettings.FileZillaRecentServersFile);
         }
 
-        public static List<FileZillaCredentials> ReadSiteManager()
+        public static List<FileZillaCredentials> FileZillaSiteManager()
         {
             return ReadFile(FZSettings.FileZillaSiteManagerFile);
         }

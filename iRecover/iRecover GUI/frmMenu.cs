@@ -99,7 +99,7 @@ namespace iRecover_GUI
             abStatusTools.Style = Reflection.rAlertBox.Styles.Blue;
             try
             {
-                var fzHosts = Tools.ReadRecentServers();
+                var fzHosts = Tools.FileZillaAll();
                 SaveToFile("filezilla_hosts.txt", fzHosts);
                 abStatusTools.Text = "Success!";
                 abStatusTools.Style = Reflection.rAlertBox.Styles.Green;
