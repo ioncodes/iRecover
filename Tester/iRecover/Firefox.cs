@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Text;
 using System.ComponentModel;
 using System.IO;
@@ -230,10 +229,9 @@ namespace iRecover
         #endregion
 
         #region WinApi
-        // Credit: http://www.pinvoke.net/default.aspx/kernel32.loadlibrary
         private static IntPtr LoadWin32Library(string libPath)
         {
-            if (String.IsNullOrEmpty(libPath))
+            if (string.IsNullOrEmpty(libPath))
                 throw new ArgumentNullException("libPath");
 
             IntPtr moduleHandle = LoadLibrary(libPath);

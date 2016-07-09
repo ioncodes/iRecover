@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace iRecover
+﻿namespace iRecover
 {
     public class FileZillaCredentials
     {
@@ -16,7 +10,7 @@ namespace iRecover
             Pass = "not found";
         }
 
-        public FileZillaCredentials(String host, String port, String username, String password)
+        public FileZillaCredentials(string host, string port, string username, string password)
         {
             Host = host;
             Port = port;
@@ -24,10 +18,10 @@ namespace iRecover
             Pass = password;
         }
 
-        public String Host { get; set; }
-        public String Port { get; set; }
-        public String User { get; set; }
-        public String Pass { get; set; }
+        public string Host { get; set; }
+        public string Port { get; set; }
+        public string User { get; set; }
+        public string Pass { get; set; }
     }
 }
 

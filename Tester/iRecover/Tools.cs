@@ -28,7 +28,7 @@ namespace iRecover
             return ReadFile(FZSettings.FileZillaSiteManagerFile);
         }
 
-        private static List<FileZillaCredentials> ReadFile(String filename)
+        private static List<FileZillaCredentials> ReadFile(string filename)
         {
             List<FileZillaCredentials> _list = new List<FileZillaCredentials>();
 
