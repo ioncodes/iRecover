@@ -1,8 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Data;
+using System.IO;
 
 namespace iRecover
 {
@@ -25,7 +24,7 @@ namespace iRecover
                 StrPort = Ds.Tables["Server"].Rows[i]["Port"].ToString();
                 StrUser = Ds.Tables["Server"].Rows[i]["User"].ToString();
                 StrPass = Convert.FromBase64String(Ds.Tables["Server"].Rows[i]["Pass"].ToString()).ToString(); //Error wtf
-                hosts.Add("Host: " + StrHost + "\nPort: " + StrPort + "\nUser: " + StrUser + "\nPassword: " + StrPass + "\n\n");
+                hosts.Add("Host: " + StrHost + " Port: " + StrPort + " User: " + StrUser + " Password: " + StrPass);
             }
             return hosts;
         }
