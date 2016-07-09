@@ -1,2 +1,2 @@
 # iRecover
-Password Recovery tool and library in .NET
+Password Recovery Library written in .NET
